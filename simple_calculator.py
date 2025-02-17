@@ -1,4 +1,5 @@
 # Simple Python App
+# Test comment to trigger the pipeline
 def main():
     print("Welcome to the simple calculator!")
     
