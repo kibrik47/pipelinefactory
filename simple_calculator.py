@@ -1,5 +1,4 @@
 # Simple Python App
-# Test Comment
 def main():
     print("Welcome to the simple calculator!")
     
