@@ -1,0 +1,42 @@
+name: S3 Deploy
+
+on:
+ workflow_dispatch:
+
+jobs:
+ deploy-s3:
+   runs-on: ubuntu-latest
+   env:
+     AWS_DEFAULT_REGION: eu-north-1
+     BUCKET_NAME: 
+   steps:
+     - name: Checkout repository
+       uses: actions/checkout@v3
+
+     - uses: pnpm/action-setup@v2
+       with:
+         version: 8
+     - name: Set up Node.js
+       uses: actions/setup-node@v3
+       with:
+         node-version: current
+         cache: 'pnpm'
+
+     - name: Install
+       run: pnpm install
+
+     - name: Build
+       run: pnpm build
+       env:
+         VITE_SERVER_URL: 
+         VITE_MAP_KEY: 
+
+     - name: Configure AWS Credentials
+       uses: aws-actions/configure-aws-credentials@v2
+       with:
+         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+     - name: Upload files to S3
+       run: aws s3 sync dist/ s3://${{ env.BUCKET_NAME }}/ --exact-timestamps --delete
