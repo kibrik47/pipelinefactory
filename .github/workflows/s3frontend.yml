@@ -24,8 +24,8 @@ jobs:
           node-version: current
           cache: 'pnpm'
 
-      - name: List files in the repository (debugging)
-        run: ls -al
+      # - name: List files in the repository (debugging)
+      #   run: ls -al
 
       - name: Install dependencies
         run: pnpm install
