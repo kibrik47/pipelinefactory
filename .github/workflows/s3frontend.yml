@@ -18,24 +18,21 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 8
-          
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: current
           cache: 'pnpm'
-      
-      - name: List directory structure
-        run: ls -R
 
-      - name: Install dependencies (in node-app folder)
+      - name: List files in the repository (debugging)
+        run: ls -al
+
+      - name: Install dependencies
         run: pnpm install
-        working-directory: ./node-app
 
-      - name: Build project (in node-app folder)
+      - name: Build project
         run: pnpm build
-        working-directory: ./node-app
-
+        
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
