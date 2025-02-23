@@ -24,6 +24,9 @@ jobs:
         with:
           node-version: current
           cache: 'pnpm'
+      
+      - name: List directory structure
+        run: ls -R
 
       - name: Install dependencies (in node-app folder)
         run: pnpm install
